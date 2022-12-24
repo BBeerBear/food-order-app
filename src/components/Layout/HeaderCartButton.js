@@ -13,7 +13,9 @@ const HeaderCartButton = (props) => {
     return currNumber + item.amount;
   }, 0);
 
-  const btnClasses = `${classes.button} ${btnIsHighLighted} ? ${classes.bump} : '' `;
+  const btnClasses = `${classes.button} ${
+    btnIsHighLighted ? classes.bump : ''
+  }`;
 
   useEffect(() => {
     if (items.length === 0) {
