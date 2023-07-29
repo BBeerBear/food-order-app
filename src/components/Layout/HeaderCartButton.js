@@ -9,14 +9,17 @@ const HeaderCartButton = (props) => {
 
   const { items } = cartCtx;
 
+  // calculate the total number of items in cart
   const numberOfCartItems = items.reduce((currNumber, item) => {
     return currNumber + item.amount;
   }, 0);
 
+  // btn css class
   const btnClasses = `${classes.button} ${
     btnIsHighLighted ? classes.bump : ''
   }`;
 
+  // when add item into cart, bump the button for 300ms
   useEffect(() => {
     if (items.length === 0) {
       return;
@@ -35,6 +38,7 @@ const HeaderCartButton = (props) => {
   return (
     <button className={btnClasses} onClick={props.onClick}>
       <span className={classes.icon}>
+        {/* svg icon */}
         <CartIcon />
       </span>
       <span>Your Cart</span>

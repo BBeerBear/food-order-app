@@ -16,6 +16,7 @@ const cartReducer = (state, action) => {
 
     let updatedItem;
     let updatedItems;
+    // exist -> update amount only
     if (existingCartItem) {
       updatedItem = {
         ...existingCartItem,
@@ -24,6 +25,7 @@ const cartReducer = (state, action) => {
       updatedItems = [...state.items];
       updatedItems[existingCartItemIndex] = updatedItem;
     } else {
+      // add item into items array
       updatedItems = state.items.concat(action.item);
     }
 
