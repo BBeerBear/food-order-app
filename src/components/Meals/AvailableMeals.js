@@ -4,19 +4,20 @@ import classes from './AvailableMeals.module.css';
 import MealItem from './MealItem/MealItem';
 
 const AvailableMeals = () => {
-  const [meals, setMeals] = useState([]);
+  const [meals, setMeals] = useState([]); // store meals[]
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState();
 
   useEffect(() => {
     const fetchMeals = async () => {
       const response = await fetch(
-        'https://react-food-order-app-b1659-default-rtdb.firebaseio.com/meals.json'
+        'https://food-order-app-bfe99-default-rtdb.firebaseio.com/meals.json'
       );
       if (!response.ok) {
         throw new Error('Something went wrong');
       }
       const responseData = await response.json();
+      // get meals[]
       const loadedMeals = [];
       for (const key in responseData) {
         loadedMeals.push({
@@ -36,6 +37,7 @@ const AvailableMeals = () => {
     });
   }, []);
 
+  // keep xml clean
   if (isLoading) {
     return (
       <section className={classes.MealsLoading}>
@@ -60,6 +62,7 @@ const AvailableMeals = () => {
       price={meal.price}
     />
   ));
+
   return (
     <section className={classes.meals}>
       <Card>
