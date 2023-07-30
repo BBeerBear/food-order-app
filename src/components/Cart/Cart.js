@@ -10,6 +10,7 @@ const Cart = (props) => {
   const [isCheckout, setIsCheckout] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [didSubmit, setDidSubmit] = useState(false);
+  // get items and totalAmount
   const items = useSelector((state) => state.cart.items);
   const totalAmount = useSelector((state) => state.cart.totalAmount);
   const dispatch = useDispatch();
@@ -22,24 +23,27 @@ const Cart = (props) => {
     dispatch(cartActions.removeCartItem(id));
   };
 
-  // add
+  // add amount of item
   const cartItemAddHandler = (item) => {
     dispatch(cartActions.addCartItem(item));
   };
 
+  // open checkout to pay the order
   const orderHandler = () => {
     setIsCheckout(true);
   };
 
   const submitOrderHandler = async (userData) => {
     setIsSubmitting(true);
+    // send order to db
+    console.log(items);
     await fetch(
       'https://food-order-app-bfe99-default-rtdb.firebaseio.com/orders.json',
       {
         method: 'POST',
         body: JSON.stringify({
           user: userData,
-          orderedItem: items,
+          orderedItems: items,
         }),
       }
     );
@@ -63,9 +67,10 @@ const Cart = (props) => {
     </ul>
   );
 
+  // operate the modal
   const modalAction = (
     <div className={classes.actions}>
-      <button className={classes['button-alt']} onClick={props.onClose}>
+      <button className={classes['button--alt']} onClick={props.onClose}>
         Close
       </button>
       {hasItems && (
@@ -76,13 +81,17 @@ const Cart = (props) => {
     </div>
   );
 
+  // content of the cart modal
   const cartModalContent = (
     <>
+      {/* items */}
       {cartItems}
+      {/* total amount */}
       <div className={classes.total}>
         <span>Total Amount</span>
         <span>{totalAmountFormatted}</span>
       </div>
+      {/* fill checkout info */}
       {isCheckout && (
         <Checkout onConfirm={submitOrderHandler} onCancel={props.onClose} />
       )}
@@ -90,13 +99,15 @@ const Cart = (props) => {
     </>
   );
 
+  // the contents when submitting the order
   const isSubmittingModalContent = <p>Sending order data...</p>;
 
+  // the contents after submitting the order
   const didSubmitModalContent = (
     <>
       <p>Successfully sent the order!</p>
       <div className={classes.actions}>
-        <button className={classes['button-alt']} onClick={props.onClose}>
+        <button className={classes['button--alt']} onClick={props.onClose}>
           Close
         </button>
       </div>

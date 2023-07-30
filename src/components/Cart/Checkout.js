@@ -47,6 +47,7 @@ const Checkout = (props) => {
       return;
     }
 
+    // userData
     props.onConfirm({
       name: enteredName,
       street: enteredStreet,
@@ -55,6 +56,7 @@ const Checkout = (props) => {
     });
   };
 
+  // control css class
   const nameControlClasses = `${classes.control} ${
     formInputValidity.name ? '' : classes.invalid
   }`;
