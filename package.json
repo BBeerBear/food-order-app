@@ -1,7 +1,7 @@
 {
   "name": "react-complete-guide",
   "version": "0.1.0",
-  "homepage": "https://bbeerbear.github.io/react-gh-pages",
+  "homepage": "https://bbeerbear.github.io/food-order-app",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
